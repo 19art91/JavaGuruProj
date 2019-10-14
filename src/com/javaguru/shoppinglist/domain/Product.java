@@ -1,6 +1,7 @@
 package com.javaguru.shoppinglist.domain;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Product {
 
@@ -8,7 +9,7 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String category;
-    private int discount;
+    private double discount;
     private String description;
 
     public Long getId() {
@@ -43,7 +44,7 @@ public class Product {
         this.category = category;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
@@ -57,6 +58,19 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return name.equals(product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.parseInt(name);
     }
 
     @Override
