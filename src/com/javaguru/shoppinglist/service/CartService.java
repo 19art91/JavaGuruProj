@@ -32,6 +32,7 @@ public class CartService {
         repository.delete(name);
     }
 
+    //it is supposed that entered price is final and discount was already deducted. Need more requirements on this.
     public BigDecimal calculateCartTotalPrice(String name){
         ShoppingCart cart = repository.read(name);
         BigDecimal total = new BigDecimal(0);
