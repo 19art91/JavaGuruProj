@@ -15,7 +15,11 @@ public class ProductValidationService {
         validationRules.add(new ProductPriceValidationRule());
     }
 
+    public void setValidationRules(Set<ProductValidationRule> validationRules) {
+        this.validationRules = validationRules;
+    }
+
     public void validate(Product product, ProductInMemoryRepository repository){
-        validationRules.forEach(p -> p.validate(product, repository));
+       validationRules.forEach(p -> p.validate(product, repository));
     }
 }
