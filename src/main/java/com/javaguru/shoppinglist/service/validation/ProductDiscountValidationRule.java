@@ -21,4 +21,16 @@ public class ProductDiscountValidationRule implements ProductValidationRule {
             product.setDiscount(0);
         }
     }
+
+    public static double getMinDiscount() {
+        return MIN_DISCOUNT;
+    }
+
+    public static double getMaxDiscount() {
+        return MAX_DISCOUNT;
+    }
+
+    public static BigDecimal getMinPrice() {
+        return MIN_PRICE;
+    }
 }

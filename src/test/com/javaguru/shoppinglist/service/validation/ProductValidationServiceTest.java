@@ -18,9 +18,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductValidationServiceTest {
@@ -36,8 +37,6 @@ public class ProductValidationServiceTest {
 
     @Captor
     private ArgumentCaptor<Product> productCaptor;
-    @Captor
-    private ArgumentCaptor<ProductInMemoryRepository> repositoryCaptor;
 
     @InjectMocks
     private ProductValidationService victim;
@@ -58,10 +57,11 @@ public class ProductValidationServiceTest {
     @Test
     public void shouldValidate(){
         victim.validate(product, productInMemoryRepository);
+        victim.validate(product, productInMemoryRepository);
 
-        verify(productNameValidationRule).validate(productCaptor.capture(), repositoryCaptor.capture());
-        verify(productPriceValidationRule).validate(productCaptor.capture(), repositoryCaptor.capture());
-        verify(productDiscountValidationRule).validate(productCaptor.capture(), repositoryCaptor.capture());
+        verify(productNameValidationRule, times(2)).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
+        verify(productPriceValidationRule, atMost(2)).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
+        verify(productDiscountValidationRule, atLeast(2)).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
 
         List<Product> resultList = productCaptor.getAllValues();
         assertThat(resultList).containsOnly(product);

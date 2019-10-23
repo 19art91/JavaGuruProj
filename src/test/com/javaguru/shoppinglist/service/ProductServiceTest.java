@@ -17,8 +17,8 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductServiceTest {
@@ -35,9 +35,6 @@ public class ProductServiceTest {
     @Captor
     private ArgumentCaptor<Product> productCaptor;
 
-    @Captor
-    private ArgumentCaptor<ProductInMemoryRepository> repositoryCaptor;
-
     @Test
     public void shouldCreateProduct() {
         Product product = product();
@@ -45,7 +42,7 @@ public class ProductServiceTest {
 
         Long result = victim.createProduct(product);
 
-        verify(validationService).validate(productCaptor.capture(), repositoryCaptor.capture());
+        verify(validationService).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
         Product captorResult = productCaptor.getValue();
 
         Assert.assertEquals(captorResult, product);
@@ -55,10 +52,14 @@ public class ProductServiceTest {
     @Test
     public void shouldFindProductById() {
         when(repository.findProductById(2000L)).thenReturn(product());
-
         Product result = victim.findProductById(2000L);
 
         Assert.assertEquals(result, product());
+
+        when(repository.findProductById(10L)).thenReturn(null);
+        result = victim.findProductById(10L);
+        Assert.assertEquals(result, null);
+
     }
 
 
