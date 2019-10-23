@@ -1,6 +1,7 @@
-package com.javaguru.shoppinglist;
+package com.javaguru.shoppinglist.domain;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Product {
 
@@ -8,7 +9,7 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String category;
-    private int discount;
+    private double discount;
     private String description;
 
     public Long getId() {
@@ -43,7 +44,7 @@ public class Product {
         this.category = category;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
