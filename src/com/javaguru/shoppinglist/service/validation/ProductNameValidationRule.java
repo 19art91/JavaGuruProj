@@ -19,7 +19,7 @@ public class ProductNameValidationRule implements ProductValidationRule {
             throw  new ProductValidationException("Product name must be in range " + MIN_NAME + " - " + MAX_NAME);
         }
 
-        if (repository.findProductByName(product.getName()) != null){
+        if (repository.findProductByName(product.getName()).isPresent()){
             throw new ProductValidationException("Duplicate product name");
         }
     }
