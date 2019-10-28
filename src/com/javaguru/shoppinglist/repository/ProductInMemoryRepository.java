@@ -5,6 +5,7 @@ import javafx.concurrent.Task;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class ProductInMemoryRepository {
 
@@ -17,8 +18,8 @@ public class ProductInMemoryRepository {
         return product;
     }
 
-    public Product findProductById(Long id) {
-        return productRepository.get(id);
+    public Optional<Product> findProductById(Long id) {
+        return Optional.ofNullable(productRepository.get(id));
     }
 
     public Product findProductByName(String name) {

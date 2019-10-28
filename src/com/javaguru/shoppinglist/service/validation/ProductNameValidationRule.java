@@ -13,9 +13,13 @@ public class ProductNameValidationRule implements ProductValidationRule {
         checkNotNull(product);
         if(product.getName() == null){
             throw new ProductValidationException("Product name must not be null");
-        } else if (product.getName().length() < MIN_NAME || product.getName().length() > MAX_NAME){
+        }
+
+        if (product.getName().length() < MIN_NAME || product.getName().length() > MAX_NAME){
             throw  new ProductValidationException("Product name must be in range " + MIN_NAME + " - " + MAX_NAME);
-        } else if (repository.findProductByName(product.getName()) != null){
+        }
+
+        if (repository.findProductByName(product.getName()) != null){
             throw new ProductValidationException("Duplicate product name");
         }
     }
