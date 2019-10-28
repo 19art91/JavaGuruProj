@@ -3,6 +3,7 @@ package com.javaguru.shoppinglist.service;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
+import com.javaguru.shoppinglist.service.validation.CartValidationService;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -10,11 +11,17 @@ import java.util.Map;
 
 public class CartService {
 
-    private CartInMemoryRepository repository = new CartInMemoryRepository();
-//    private CartValidationService validationService = new CartValidationService();
+    private CartInMemoryRepository repository;
+    private CartValidationService validationService;
+
+
+    public CartService(CartInMemoryRepository repository, CartValidationService validationService) {
+        this.repository = repository;
+        this.validationService = validationService;
+    }
 
     public ShoppingCart createCart(ShoppingCart cart) {
-//        validationService.validate(product, repository);
+        validationService.validate(cart, repository);
         ShoppingCart createdCart = repository.insert(cart);
         return createdCart;
     }
