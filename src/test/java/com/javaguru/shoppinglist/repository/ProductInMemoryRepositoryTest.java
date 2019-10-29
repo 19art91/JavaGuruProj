@@ -1,18 +1,14 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
-import org.junit.Assert;
+import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import sun.dc.pr.PRError;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.math.BigDecimal;
-
-import static org.junit.Assert.*;
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductInMemoryRepositoryTest {
@@ -22,37 +18,37 @@ public class ProductInMemoryRepositoryTest {
     private static final String PROD_DESCRIPTION = "TASK_DESCRIPTION";
     private static final long PROD_ID = 0L;
     private static final long BAD_ID = 111L;
-
     private ProductInMemoryRepository victim = new ProductInMemoryRepository();
-
     Product product = product();
+
     @Test
     public void shouldInsert() {
         Product result = victim.insert(product);
         assertThat(result).isEqualTo(expectedProd());
-        product.setId(15L);
     }
 
     @Test
     public void shouldFindProductById() {
         victim.insert(product);
 
-        Product result = victim.findProductById(PROD_ID);
-        assertThat(result).isEqualTo(expectedProd());
+        Optional<Product> result = victim.findProductById(PROD_ID);
+        assertThat(result).isNotEmpty();
+        assertThat(result).hasValue(expectedProd());
 
         result = victim.findProductById(BAD_ID);
-        assertThat(result).isEqualTo(null);
+        assertThat(result).isEmpty();
     }
 
     @Test
     public void shouldFindProductByName() {
         victim.insert(product);
 
-        Product result = victim.findProductByName(PROD_NAME);
-        assertThat(result).isEqualTo(expectedProd());
+        Optional<Product> result = victim.findProductByName(PROD_NAME);
+        assertThat(result).isNotEmpty();
+        assertThat(result).hasValue(expectedProd());
 
         result = victim.findProductByName(BAD_NAME);
-        assertThat(result).isEqualTo(null);
+        assertThat(result).isEmpty();
     }
 
     private Product expectedProd(){
@@ -62,6 +58,7 @@ public class ProductInMemoryRepositoryTest {
         product.setId(PROD_ID);
         return product;
     }
+
     private Product product(){
         Product product = new Product();
         product.setName(PROD_NAME);

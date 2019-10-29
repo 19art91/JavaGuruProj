@@ -2,6 +2,7 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.service.validation.*;
 import com.sun.jmx.mbeanserver.Repository;
 import org.junit.Assert;
 import org.junit.Before;

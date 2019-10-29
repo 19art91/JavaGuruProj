@@ -24,7 +24,4 @@ public class ProductDiscountValidationRule implements ProductValidationRule {
         return MAX_DISCOUNT;
     }
 
-    public static BigDecimal getMinPrice() {
-        return MIN_PRICE;
-    }
 }

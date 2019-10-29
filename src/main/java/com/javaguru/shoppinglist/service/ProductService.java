@@ -27,4 +27,5 @@ public class ProductService {
     public Product findProductById(Long id) {
         return repository.findProductById(id).orElseThrow(() -> new NoSuchElementException("Product not found, id: " + id));
     }
+
 }

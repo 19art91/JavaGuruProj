@@ -2,6 +2,8 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.service.validation.ProductDiscountValidationRule;
+import com.javaguru.shoppinglist.service.validation.ProductValidationException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,22 +44,7 @@ public class ProductDiscountValidationRuleTest {
         }
         assertTrue(thrown);
 
-    }
-
-    @Test
-    public void shouldValidate(){
-        product = product();
-        product.setPrice(ProductDiscountValidationRule.getMinPrice().subtract(new BigDecimal(1)));
-        victim.validate(product, repository);
-
-        assertEquals(0, Double.compare(product.getDiscount(), 0));
-
-        product.setPrice(new BigDecimal(25));
-        victim.validate(product, repository);
-
-        assertEquals(new BigDecimal(25), product.getPrice());
-
-        verify(victim, times(2)).checkNotNull(product);
+        verify(victim).checkNotNull(product);
     }
 
     private Product product(){
