@@ -3,18 +3,18 @@ package com.javaguru.shoppinglist.service;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
+import com.javaguru.shoppinglist.service.validation.CartValidationService;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class CartService {
 
     private CartInMemoryRepository repository = new CartInMemoryRepository();
-//    private CartValidationService validationService = new CartValidationService();
+    private CartValidationService validationService = new CartValidationService();
 
     public ShoppingCart createCart(ShoppingCart cart) {
-//        validationService.validate(product, repository);
+        validationService.validate(cart, repository);
         ShoppingCart createdCart = repository.insert(cart);
         return createdCart;
     }
@@ -24,8 +24,7 @@ public class CartService {
     }
 
     public ShoppingCart findCartByName(String name){
-        ShoppingCart cart = repository.read(name);
-        return cart;
+        return repository.read(name).orElseThrow(() -> new NoSuchElementException("Cart not found, name: " + name));
     }
 
     public void deleteCart(String name){
@@ -34,7 +33,7 @@ public class CartService {
 
     //it is supposed that entered price is final and discount was already deducted. Need more requirements on this.
     public BigDecimal calculateCartTotalPrice(String name){
-        ShoppingCart cart = repository.read(name);
+        ShoppingCart cart = repository.read(name).get();
         BigDecimal total = new BigDecimal(0);
 
         for(Product p : cart.getProductList()){

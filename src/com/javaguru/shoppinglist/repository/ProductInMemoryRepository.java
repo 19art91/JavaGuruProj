@@ -1,11 +1,9 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
-import javafx.concurrent.Task;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class ProductInMemoryRepository {
@@ -30,7 +28,6 @@ public class ProductInMemoryRepository {
                 product = p;
             }
         }
-
         return Optional.ofNullable(product);
     }
 }
