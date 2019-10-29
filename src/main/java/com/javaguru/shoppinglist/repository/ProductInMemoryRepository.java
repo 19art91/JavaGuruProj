@@ -1,10 +1,10 @@
 package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
+import javafx.concurrent.Task;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class ProductInMemoryRepository {
 
@@ -17,17 +17,16 @@ public class ProductInMemoryRepository {
         return product;
     }
 
-    public Optional<Product> findProductById(Long id) {
-        return Optional.ofNullable(productRepository.get(id));
+    public Product findProductById(Long id) {
+        return productRepository.get(id);
     }
 
-    public Optional<Product> findProductByName(String name) {
-        Product product = null;
+    public Product findProductByName(String name) {
         for (Product p : productRepository.values()) {
             if (p.getName().equals(name)) {
-                product = p;
+                return p;
             }
         }
-        return Optional.ofNullable(product);
+        return null;
     }
 }

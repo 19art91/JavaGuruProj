@@ -17,11 +17,11 @@ public class CartInMemoryRepository {
         cartRepository.get(name).addProductToList(product);
     }
 
-    public Optional<ShoppingCart> read(String name){
-        return Optional.ofNullable(cartRepository.get(name));
+    public ShoppingCart read(String name) {
+        return cartRepository.get(name);
     }
 
-    public void delete(String name){
+    public void delete(String name) {
         cartRepository.remove(name);
     }
 

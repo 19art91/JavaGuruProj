@@ -2,8 +2,6 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
-import com.javaguru.shoppinglist.service.validation.ProductNameValidationRule;
-import com.javaguru.shoppinglist.service.validation.ProductValidationException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.swing.text.html.Option;
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -64,8 +60,7 @@ public class ProductNameValidationRuleTest {
 
         thrown = false;
         product.setName("PROD_NAME");
-        Optional<Product> prod = Optional.of(product);
-        when(repository.findProductByName(product.getName())).thenReturn(prod);
+        when(repository.findProductByName(product.getName())).thenReturn(product);
 
         try{
             victim.validate(product, repository);
@@ -80,7 +75,8 @@ public class ProductNameValidationRuleTest {
 
     @Test
     public void shouldValidate() {
-        when(repository.findProductByName(product.getName())).thenReturn(Optional.empty());
+        when(repository.findProductByName(product.getName())).thenReturn(null);
+
         victim.validate(product, repository);
 
         verify(victim).checkNotNull(product);
