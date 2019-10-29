@@ -10,13 +10,8 @@ import java.util.Scanner;
 
 public class ConsoleUI {
 
-    private ProductService productService;
-    private CartService cartService;
-
-    public ConsoleUI(ProductService productService, CartService cartService) {
-        this.productService = productService;
-        this.cartService = cartService;
-    }
+    private ProductService productService = new ProductService();
+    private CartService cartService = new CartService();
 
     public void execute() {
         while (true) {

@@ -50,7 +50,8 @@ public class ProductValidationServiceTest {
         rules.add(productDiscountValidationRule);
         rules.add(productPriceValidationRule);
 
-        victim = new ProductValidationService(rules);
+        victim = new ProductValidationService();
+        victim.setValidationRules(rules);
     }
 
     @Test

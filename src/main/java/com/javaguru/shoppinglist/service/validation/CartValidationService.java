@@ -9,10 +9,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CartValidationService {
-    private Set<CartValidationRule> validationRules;
+    private Set<CartValidationRule> validationRules = new HashSet<>();
 
-    public CartValidationService(Set<CartValidationRule> validationRules) {
-        this.validationRules = validationRules;
+    public CartValidationService() {
+//        validationRules.add(new ProductNameValidationRule());
+//        validationRules.add(new ProductDiscountValidationRule());
+//        validationRules.add(new ProductPriceValidationRule());
     }
 
     public void validate(ShoppingCart cart, CartInMemoryRepository repository){
