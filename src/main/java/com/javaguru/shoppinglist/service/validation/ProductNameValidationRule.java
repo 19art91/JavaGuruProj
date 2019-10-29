@@ -11,20 +11,16 @@ public class ProductNameValidationRule implements ProductValidationRule {
     @Override
     public void validate(Product product, ProductInMemoryRepository repository) {
         checkNotNull(product);
-        if(product.getName().equals("")){
-            throw new ProductValidationException("Product name must not be empty");
-        } else if (product.getName().length() < MIN_NAME || product.getName().length() > MAX_NAME){
+        if(product.getName() == null){
+            throw new ProductValidationException("Product name must not be null");
+        }
+
+        if (product.getName().length() < MIN_NAME || product.getName().length() > MAX_NAME){
             throw  new ProductValidationException("Product name must be in range " + MIN_NAME + " - " + MAX_NAME);
-        } else if (repository.findProductByName(product.getName()) != null){
+        }
+
+        if (repository.findProductByName(product.getName()).isPresent()){
             throw new ProductValidationException("Duplicate product name");
         }
-    }
-
-    public static int getMinName() {
-        return MIN_NAME;
-    }
-
-    public static int getMaxName() {
-        return MAX_NAME;
     }
 }
