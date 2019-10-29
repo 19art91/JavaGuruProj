@@ -21,7 +21,7 @@ public class ShoppingCart {
         this.name = name;
     }
 
-    public void  addProductToList(Product product) {
+    public void addProductToList(Product product) {
         this.productList.add(product);
     }
 

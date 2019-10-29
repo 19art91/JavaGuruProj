@@ -118,7 +118,7 @@ public class ConsoleUI {
         cart.setName(name);
 
         ShoppingCart createdCart = cartService.createCart(cart);
-        System.out.println(cart.getName() + " is created");
+        System.out.println(createdCart.getName() + " is created");
     }
 
     private void addProductToCart() {
@@ -137,8 +137,7 @@ public class ConsoleUI {
         System.out.println("Enter shopping cart name: ");
         String name = scanner.nextLine();
 
-        ShoppingCart cart = cartService.findCartByName(name);
-        return cart;
+        return cartService.findCartByName(name);
     }
 
     private void printCart(ShoppingCart cart) {

@@ -2,6 +2,7 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.service.validation.*;
 import com.sun.jmx.mbeanserver.Repository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -63,6 +64,7 @@ public class ProductValidationServiceTest {
         verify(productDiscountValidationRule, atLeast(2)).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
 
         List<Product> resultList = productCaptor.getAllValues();
+        System.out.println(resultList.size());
         assertThat(resultList).containsOnly(product);
     }
 

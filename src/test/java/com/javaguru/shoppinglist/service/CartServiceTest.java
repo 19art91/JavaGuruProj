@@ -16,7 +16,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -65,15 +68,20 @@ public class CartServiceTest {
     @Test
     public void findCartByName() {
         ShoppingCart cart = shoppingCart();
-        when(repository.read("TEST_CART")).thenReturn(cart);
+        when(repository.read("TEST_CART")).thenReturn(Optional.of(cart));
         ShoppingCart result = victim.findCartByName("TEST_CART");
 
         Assert.assertEquals(shoppingCart(), result);
+    }
 
-        when(repository.read("BAD_CART")).thenReturn(null);
-        ShoppingCart badResult = victim.findCartByName("BAD_CART");
+    @Test
 
-        Assert.assertEquals(badResult, null);
+    public void shouldThrowExceptionCartNotFound(){
+        when(repository.read("BAD_CART")).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> victim.findCartByName("BAD_CART"))
+                .isInstanceOf(NoSuchElementException.class)
+                .hasMessage("Cart not found, name: BAD_CART");
     }
 
     @Test
@@ -93,7 +101,7 @@ public class CartServiceTest {
         productList.add(product());
         productList.add(product());
         cart.setProductList(productList);
-        when(repository.read(cart.getName())).thenReturn(cart);
+        when(repository.read(cart.getName())).thenReturn(Optional.of(cart));
 
         BigDecimal actualResult = victim.calculateCartTotalPrice("TEST_CART");
         BigDecimal expectedResult = new BigDecimal(14*3);

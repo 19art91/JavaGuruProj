@@ -4,6 +4,9 @@ import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 
+import java.math.BigDecimal;
+import java.util.NoSuchElementException;
+
 public class ProductService {
 
     private ProductInMemoryRepository repository;
@@ -21,7 +24,7 @@ public class ProductService {
     }
 
     public Product findProductById(Long id) {
-        return repository.findProductById(id);
+        return repository.findProductById(id).orElseThrow(() -> new NoSuchElementException("Product not found, id: " + id));
     }
 
 }
