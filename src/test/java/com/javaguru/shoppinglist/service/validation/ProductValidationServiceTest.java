@@ -2,6 +2,7 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.service.validation.*;
 import com.sun.jmx.mbeanserver.Repository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,7 +51,8 @@ public class ProductValidationServiceTest {
         rules.add(productDiscountValidationRule);
         rules.add(productPriceValidationRule);
 
-        victim = new ProductValidationService(rules);
+        victim = new ProductValidationService();
+        victim.setValidationRules(rules);
     }
 
     @Test

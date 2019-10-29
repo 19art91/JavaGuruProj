@@ -10,13 +10,8 @@ import java.util.Scanner;
 
 public class ConsoleUI {
 
-    private ProductService productService;
-    private CartService cartService;
-
-    public ConsoleUI(ProductService productService, CartService cartService) {
-        this.productService = productService;
-        this.cartService = cartService;
-    }
+    private ProductService productService = new ProductService();
+    private CartService cartService = new CartService();
 
     public void execute() {
         while (true) {
@@ -118,7 +113,7 @@ public class ConsoleUI {
         cart.setName(name);
 
         ShoppingCart createdCart = cartService.createCart(cart);
-        System.out.println(cart.getName() + " is created");
+        System.out.println(createdCart.getName() + " is created");
     }
 
     private void addProductToCart() {
@@ -137,8 +132,7 @@ public class ConsoleUI {
         System.out.println("Enter shopping cart name: ");
         String name = scanner.nextLine();
 
-        ShoppingCart cart = cartService.findCartByName(name);
-        return cart;
+        return cartService.findCartByName(name);
     }
 
     private void printCart(ShoppingCart cart) {

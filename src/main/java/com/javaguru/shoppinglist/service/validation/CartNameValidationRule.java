@@ -10,7 +10,9 @@ public class CartNameValidationRule implements CartValidationRule {
         checkNotNull(cart);
         if(cart.getName().equals("")){
             throw new ProductValidationException("Cart name must not be empty");
-        } else if (repository.read(cart.getName()) != null){
+        }
+
+        if (repository.read(cart.getName()).isPresent()){
             throw new ProductValidationException("Duplicate cart name");
         }
     }
