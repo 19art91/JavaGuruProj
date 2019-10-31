@@ -2,11 +2,17 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
+import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 
 public class CartNameValidationRule implements CartValidationRule {
+    private CartInMemoryRepository repository;
+
+    public CartNameValidationRule(CartInMemoryRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public void validate(ShoppingCart cart, CartInMemoryRepository repository) {
+    public void validate(ShoppingCart cart) {
         checkNotNull(cart);
         if(cart.getName().equals("")){
             throw new CartValidationException("Cart name must not be empty");

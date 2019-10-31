@@ -51,7 +51,7 @@ public class ProductServiceTest {
 
         victim.createProduct(product);
 
-        verify(validationService).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
+        verify(validationService).validate(productCaptor.capture());
         Product captorResult = productCaptor.getValue();
 
         Assert.assertEquals(captorResult, product);

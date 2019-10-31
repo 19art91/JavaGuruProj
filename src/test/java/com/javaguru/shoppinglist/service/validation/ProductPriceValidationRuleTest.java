@@ -35,7 +35,7 @@ public class ProductPriceValidationRuleTest {
         product.setPrice(new BigDecimal(-2));
 
         try{
-            victim.validate(product, repository);
+            victim.validate(product);
         } catch (ProductValidationException e){
             if(e.getMessage().equals("Incorrect price. Should be greater than " + ProductPriceValidationRule.getMinPrice())){
                 thrown = true;
@@ -48,7 +48,7 @@ public class ProductPriceValidationRuleTest {
     @Test
     public void shouldValidate(){
         product = product();
-        victim.validate(product,repository);
+        victim.validate(product);
 
         verify(victim).checkNotNull(product);
     }

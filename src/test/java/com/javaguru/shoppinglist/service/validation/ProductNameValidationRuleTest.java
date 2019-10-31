@@ -38,7 +38,7 @@ public class ProductNameValidationRuleTest {
         product.setName("");
 
         try{
-            victim.validate(product, repository);
+            victim.validate(product);
         } catch (ProductValidationException e){
             if (e.getMessage().equals("Product name must not be empty")){
                 thrown = true;
@@ -52,7 +52,7 @@ public class ProductNameValidationRuleTest {
         product.setName("A");
 
         try{
-            victim.validate(product, repository);
+            victim.validate(product);
         } catch (ProductValidationException e){
             if(e.getMessage().equals("Product name must be in range " + ProductNameValidationRule.getMinName() + " - " + ProductNameValidationRule.getMaxName())){
                 thrown = true;
@@ -68,7 +68,7 @@ public class ProductNameValidationRuleTest {
         when(repository.findProductByName(product.getName())).thenReturn(prod);
 
         try{
-            victim.validate(product, repository);
+            victim.validate(product);
         } catch (ProductValidationException e){
             if(e.getMessage().equals("Duplicate product name")){
                 thrown = true;
@@ -81,7 +81,7 @@ public class ProductNameValidationRuleTest {
     @Test
     public void shouldValidate() {
         when(repository.findProductByName(product.getName())).thenReturn(Optional.empty());
-        victim.validate(product, repository);
+        victim.validate(product);
 
         verify(victim).checkNotNull(product);
     }

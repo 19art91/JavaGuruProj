@@ -12,7 +12,7 @@ public class CartValidationService {
         this.validationRules = validationRules;
     }
 
-    public void validate(ShoppingCart cart, CartInMemoryRepository repository){
-        validationRules.forEach(c -> c.validate(cart, repository));
+    public void validate(ShoppingCart cart){
+        validationRules.forEach(c -> c.validate(cart));
     }
 }

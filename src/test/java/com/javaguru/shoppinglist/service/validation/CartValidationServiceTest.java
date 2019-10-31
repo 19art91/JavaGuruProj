@@ -3,7 +3,6 @@ package com.javaguru.shoppinglist.service.validation;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ShoppingCart;
 import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
-import com.sun.org.glassfish.external.statistics.impl.AverageRangeStatisticImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,9 +47,9 @@ public class CartValidationServiceTest {
 
     @Test
     public void shouldValidate() {
-        victim.validate(cart, repository);
+        victim.validate(cart);
 
-        verify(cartNameValidationRule).validate(captor.capture(), any(CartInMemoryRepository.class));
+        verify(cartNameValidationRule).validate(captor.capture());
 
         Assert.assertEquals(captor.getValue(), shoppingCart());
     }

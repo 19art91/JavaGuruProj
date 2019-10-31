@@ -16,13 +16,13 @@ class ShoppingListApplication {
         ProductInMemoryRepository prodRepository = new ProductInMemoryRepository();
         CartInMemoryRepository cartRepository = new CartInMemoryRepository();
 
-        HashSet<ProductValidationRule> prodRules= new HashSet<ProductValidationRule>();
-        prodRules.add(new ProductDiscountValidationRule());
-        prodRules.add(new ProductPriceValidationRule());
-        prodRules.add(new ProductNameValidationRule());
+        HashSet<ProductValidationRule> prodRules= new HashSet<>();
+        prodRules.add(new ProductDiscountValidationRule(prodRepository));
+        prodRules.add(new ProductPriceValidationRule(prodRepository));
+        prodRules.add(new ProductNameValidationRule(prodRepository));
 
         HashSet<CartValidationRule> cartRules = new HashSet<>();
-        cartRules.add(new CartNameValidationRule());
+        cartRules.add(new CartNameValidationRule(cartRepository));
 
         ProductValidationService productValidationService = new ProductValidationService(prodRules);
         ProductService productService = new ProductService(prodRepository, productValidationService);

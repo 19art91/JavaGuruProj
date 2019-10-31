@@ -18,7 +18,7 @@ public class ProductService {
     }
 
     public Long createProduct(Product product) {
-        validationService.validate(product, repository);
+        validationService.validate(product);
         Product createdProduct = repository.insert(product);
         return createdProduct.getId();
     }

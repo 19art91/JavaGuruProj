@@ -7,9 +7,14 @@ public class ProductNameValidationRule implements ProductValidationRule {
 
     private final static int MIN_NAME = 3;
     private final static int MAX_NAME = 32;
+    private ProductInMemoryRepository repository;
+
+    public ProductNameValidationRule(ProductInMemoryRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public void validate(Product product, ProductInMemoryRepository repository) {
+    public void validate(Product product) {
         checkNotNull(product);
         if(product.getName().equals("")){
             throw new ProductValidationException("Product name must not be empty");

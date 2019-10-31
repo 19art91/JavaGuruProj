@@ -48,7 +48,7 @@ public class CartServiceTest {
 
         victim.createCart(cart);
 
-        verify(validationService).validate(captor.capture(), any(CartInMemoryRepository.class));
+        verify(validationService).validate(captor.capture());
         ShoppingCart captorResult = captor.getValue();
 
         Assert.assertEquals(shoppingCart(), captorResult);

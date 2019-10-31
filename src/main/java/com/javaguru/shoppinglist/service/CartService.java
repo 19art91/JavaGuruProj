@@ -20,7 +20,7 @@ public class CartService {
     }
 
     public ShoppingCart createCart(ShoppingCart cart) {
-        validationService.validate(cart, repository);
+        validationService.validate(cart);
         ShoppingCart createdCart = repository.insert(cart);
         return createdCart;
     }
