@@ -16,7 +16,7 @@ public class ProductService {
 
 
     public Long createProduct(Product product) {
-        if (product.getPrice().compareTo(MIN_PRICE) < 0){
+        if (product.getPrice().compareTo(MIN_PRICE) < 0) {
             product.setDiscount(0);
         }
         validationService.validate(product, repository);

@@ -12,7 +12,7 @@ public class ProductPriceValidationRule implements ProductValidationRule {
     @Override
     public void validate(Product product, ProductInMemoryRepository repository) {
         checkNotNull(product);
-        if(product.getPrice().compareTo(MIN_PRICE) <= 0){
+        if (product.getPrice().compareTo(MIN_PRICE) <= 0) {
             throw new ProductValidationException("Incorrect price. Should be greater than " + MIN_PRICE);
         }
     }

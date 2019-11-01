@@ -8,11 +8,15 @@ public class CartNameValidationRule implements CartValidationRule {
     @Override
     public void validate(ShoppingCart cart, CartInMemoryRepository repository) {
         checkNotNull(cart);
-        if(cart.getName().equals("")){
+        if (cart.getName().equals("")) {
             throw new CartValidationException("Cart name must not be empty");
         }
 
-        if (repository.read(cart.getName()).isPresent()){
+        if (cart.getName() == null) {
+            throw new CartValidationException("Cart name must not be null");
+        }
+
+        if (repository.readByName(cart.getName()).isPresent()) {
             throw new CartValidationException("Duplicate cart name");
         }
     }
