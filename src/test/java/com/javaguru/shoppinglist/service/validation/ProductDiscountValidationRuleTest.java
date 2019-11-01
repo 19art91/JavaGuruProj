@@ -14,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -31,23 +32,17 @@ public class ProductDiscountValidationRuleTest {
 
     @Test
     public void shouldValidateWithException() {
-        boolean thrown = false;
         product.setDiscount(-50.0);
 
-        try{
-            victim.validate(product, repository);
-        } catch (ProductValidationException e){
-            if(e.getMessage().equals("Incorrect number. Should be in range " + ProductDiscountValidationRule.getMinDiscount() + " - " +
-                    ProductDiscountValidationRule.getMaxDiscount())){
-                thrown = true;
-            }
-        }
-        assertTrue(thrown);
+        assertThatThrownBy(() -> victim.validate(product, repository))
+                .isInstanceOf(ProductValidationException.class)
+                .hasMessage("Incorrect number. Should be in range " + ProductDiscountValidationRule.getMinDiscount() + " - " +
+                        ProductDiscountValidationRule.getMaxDiscount());
 
         verify(victim).checkNotNull(product);
     }
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");

@@ -30,14 +30,15 @@ public class ConsoleUI {
                         System.out.println(findProduct());
                         break;
                     case 3:
-                        boolean exit = false;
+                        boolean productMenu = false;
                         while (true) {
                             System.out.println("\n1. Create new cart");
                             System.out.println("2. Add product to cart");
                             System.out.println("3. Find and print cart");
                             System.out.println("4. Delete cart");
                             System.out.println("5. Calculate total price in cart");
-                            System.out.println("6. Exit");
+                            System.out.println("6. Back to product menu");
+                            System.out.println("7. Exit");
                             userInput = Integer.valueOf(scanner.nextLine());
                             switch (userInput) {
                                 case 1:
@@ -56,10 +57,12 @@ public class ConsoleUI {
                                     calculateCartTotalPrice();
                                     break;
                                 case 6:
-                                    exit = true;
+                                    productMenu = true;
                                     break;
+                                case 7:
+                                    return;
                             }
-                            if (exit) break;
+                            if (productMenu) break;
                         }
                         break;
                     case 4:
@@ -113,15 +116,11 @@ public class ConsoleUI {
         cart.setName(name);
 
         ShoppingCart createdCart = cartService.createCart(cart);
-        System.out.println(createdCart.getName() + " is created");
+        System.out.println(createdCart.getName() + " is created, id = " + createdCart.getId());
     }
 
     private void addProductToCart() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter shopping cart name: ");
-        String name = scanner.nextLine();
-
-        ShoppingCart cart = cartService.findCartByName(name);
+        ShoppingCart cart = findCart();
         Product product = findProduct();
         cartService.addProductToCart(cart, product);
         System.out.println(product.getName() + " is added to the " + cart.getName());
@@ -129,10 +128,10 @@ public class ConsoleUI {
 
     private ShoppingCart findCart() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter shopping cart name: ");
-        String name = scanner.nextLine();
+        System.out.println("Enter shopping cart id: ");
+        Long id = scanner.nextLong();
 
-        return cartService.findCartByName(name);
+        return cartService.findCartById(id);
     }
 
     private void printCart(ShoppingCart cart) {
@@ -143,19 +142,14 @@ public class ConsoleUI {
     }
 
     private void deleteCart() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter shopping cart name: ");
-        String name = scanner.nextLine();
-
-        ShoppingCart cart = cartService.findCartByName(name);
-
-        cartService.deleteCart(cart.getName());
-        System.out.println(cart.getName() + " is deleted");
+        ShoppingCart cart = findCart();
+        cartService.deleteCart(cart.getId());
+        System.out.println(cart.getName() + " is deleted, id = " + cart.getId());
     }
 
     private void calculateCartTotalPrice() {
         ShoppingCart cart = findCart();
-        BigDecimal total = cartService.calculateCartTotalPrice(cart.getName());
+        BigDecimal total = cartService.calculateCartTotalPrice(cart);
 
         System.out.println("Cart " + "\"" + cart.getName() + "\"" + " Total price = " + total + "$");
     }

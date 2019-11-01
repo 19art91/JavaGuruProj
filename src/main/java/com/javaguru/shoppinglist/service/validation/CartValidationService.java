@@ -13,7 +13,7 @@ public class CartValidationService {
         validationRules.add(new CartNameValidationRule());
     }
 
-    public void validate(ShoppingCart cart, CartInMemoryRepository repository){
+    public void validate(ShoppingCart cart, CartInMemoryRepository repository) {
         validationRules.forEach(p -> p.validate(cart, repository));
     }
 }

@@ -10,7 +10,7 @@ public class ProductDiscountValidationRule implements ProductValidationRule {
     @Override
     public void validate(Product product, ProductInMemoryRepository repository) {
         checkNotNull(product);
-        if(product.getDiscount() < MIN_DISCOUNT || product.getDiscount() > MAX_DISCOUNT){
+        if (product.getDiscount() < MIN_DISCOUNT || product.getDiscount() > MAX_DISCOUNT) {
             throw new ProductValidationException("Incorrect number. Should be in range " + MIN_DISCOUNT + " - " +
                     MAX_DISCOUNT);
         }

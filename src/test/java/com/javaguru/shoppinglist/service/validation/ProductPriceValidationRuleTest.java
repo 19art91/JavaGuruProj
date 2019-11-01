@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 import javax.swing.*;
@@ -31,18 +33,11 @@ public class ProductPriceValidationRuleTest {
 
     @Test
     public void shouldThrowException() {
-        boolean thrown = false;
         product.setPrice(new BigDecimal(-2));
 
-        try{
-            victim.validate(product, repository);
-        } catch (ProductValidationException e){
-            if(e.getMessage().equals("Incorrect price. Should be greater than " + ProductPriceValidationRule.getMinPrice())){
-                thrown = true;
-            }
-        }
-
-        assertTrue(thrown);
+        assertThatThrownBy(() -> victim.validate(product, repository))
+                .isInstanceOf(ProductValidationException.class)
+                .hasMessage("Incorrect price. Should be greater than " + ProductPriceValidationRule.getMinPrice());
     }
 
     @Test

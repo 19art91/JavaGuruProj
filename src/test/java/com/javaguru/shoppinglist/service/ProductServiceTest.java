@@ -56,8 +56,6 @@ public class ProductServiceTest {
 
         Assert.assertEquals(captorResult, product);
         Assert.assertEquals(captorResult.getId(), product.getId());
-
-
     }
 
     @Test
