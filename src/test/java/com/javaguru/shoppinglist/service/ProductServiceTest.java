@@ -71,7 +71,7 @@ public class ProductServiceTest {
         victim.findProductById(BAD_ID);
     }
 
-    private Product expectedProduct(){
+    private Product expectedProduct() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");

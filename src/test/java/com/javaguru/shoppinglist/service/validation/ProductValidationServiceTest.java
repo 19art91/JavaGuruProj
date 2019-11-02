@@ -52,10 +52,11 @@ public class ProductValidationServiceTest {
         rules.add(productPriceValidationRule);
 
         victim = new ProductValidationService(rules);
+        victim.setValidationRules(rules);
     }
 
     @Test
-    public void shouldValidate(){
+    public void shouldValidate() {
         victim.validate(product);
         victim.validate(product);
 
@@ -67,7 +68,7 @@ public class ProductValidationServiceTest {
         assertThat(resultList).containsOnly(product);
     }
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");

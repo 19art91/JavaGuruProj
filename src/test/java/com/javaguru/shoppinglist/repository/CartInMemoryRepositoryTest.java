@@ -23,17 +23,18 @@ public class CartInMemoryRepositoryTest {
     @Test
     public void shouldInsert() {
         ShoppingCart result = victim.insert(cart);
-        assertThat(result).isEqualTo(cart());
+        assertThat(result).isEqualTo(expectedCart());
     }
 
     @Test
     public void shouldUpdate() {
+        cart.setId(0L);
         ShoppingCart result = victim.insert(cart());
 
-        victim.update(result.getName(), product());
-        victim.update(result.getName(), product2());
+        victim.update(cart.getId(), product());
+        victim.update(cart.getId(), product2());
 
-        assertThat(result.getProductList()).isEqualTo(expectedCart().getProductList());
+        assertThat(result.getProductList()).isEqualTo(expectedCart2().getProductList());
     }
 
     @Test
@@ -44,23 +45,28 @@ public class CartInMemoryRepositoryTest {
     public void delete() {
     }
 
-    private ShoppingCart cart(){
+    private ShoppingCart cart() {
         ShoppingCart cart = new ShoppingCart();
         cart.setName("TEST_CART");
         return cart;
     }
 
-    private ShoppingCart expectedCart(){
+    private ShoppingCart expectedCart() {
         ShoppingCart cart = new ShoppingCart();
-        List<Product> prodList = new ArrayList<>();
-        prodList.add(product());
-        prodList.add(product2());
-        cart.setProductList(prodList);
+        cart.setName("TEST_CART");
+        cart.setId(0L);
+        return cart;
+    }
+
+    private ShoppingCart expectedCart2() {
+        ShoppingCart cart = new ShoppingCart();
+        cart.addProductToList(product());
+        cart.addProductToList(product2());
         cart.setName("TEST_CART");
         return cart;
     }
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");
@@ -71,7 +77,7 @@ public class CartInMemoryRepositoryTest {
         return product;
     }
 
-    private Product product2(){
+    private Product product2() {
         Product product = new Product();
         product.setName("PROD_NAME_2");
         product.setDescription("PROD_DESCRIPTION");

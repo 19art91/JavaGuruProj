@@ -4,7 +4,6 @@ import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 
-import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
 public class ProductService {

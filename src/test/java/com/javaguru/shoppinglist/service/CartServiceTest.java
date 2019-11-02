@@ -23,9 +23,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CartServiceTest {
+
+    private static final long BAD_ID = 111L;
 
     @Mock
     private CartInMemoryRepository repository;
@@ -39,6 +42,9 @@ public class CartServiceTest {
     @Captor
     private ArgumentCaptor<ShoppingCart> captor;
 
+    @Captor
+    ArgumentCaptor<Long> idCaptor;
+
     private Product product = product();
 
     @Test
@@ -51,8 +57,7 @@ public class CartServiceTest {
         verify(validationService).validate(captor.capture());
         ShoppingCart captorResult = captor.getValue();
 
-        Assert.assertEquals(shoppingCart(), captorResult);
-
+        Assert.assertEquals(captorResult, shoppingCart());
     }
 
     @Test
@@ -62,69 +67,64 @@ public class CartServiceTest {
         victim.addProductToCart(cart, product);
         victim.addProductToCart(cart, product);
 
-        verify(repository, times(2)).update(cart.getName(), product);
+        verify(repository, times(2)).update(cart.getId(), product);
     }
 
     @Test
-    public void findCartByName() {
+    public void findCartById() {
         ShoppingCart cart = shoppingCart();
-        when(repository.read("TEST_CART")).thenReturn(Optional.of(cart));
-        ShoppingCart result = victim.findCartByName("TEST_CART");
+        when(repository.read(cart.getId())).thenReturn(Optional.of(cart));
+        ShoppingCart result = victim.findCartById(cart.getId());
 
-        Assert.assertEquals(shoppingCart(), result);
-    }
+        Assert.assertEquals(cart, result);
 
-    @Test
+        when(repository.read(BAD_ID)).thenReturn(Optional.empty());
 
-    public void shouldThrowExceptionCartNotFound(){
-        when(repository.read("BAD_CART")).thenReturn(Optional.empty());
-
-        assertThatThrownBy(() -> victim.findCartByName("BAD_CART"))
+        assertThatThrownBy(() -> victim.findCartById(BAD_ID))
                 .isInstanceOf(NoSuchElementException.class)
-                .hasMessage("Cart not found, name: BAD_CART");
+                .hasMessage("Cart not found, id: " + BAD_ID);
     }
 
     @Test
     public void deleteCart() {
         ShoppingCart cart = shoppingCart();
-        victim.deleteCart("TEST_CART");
+        victim.deleteCart(cart.getId());
 
-        verify(repository).delete(cart.getName());
+        verify(repository).delete(idCaptor.capture());
+
+        Long id = idCaptor.getValue();
+        Assert.assertEquals(cart.getId(), id);
 
     }
 
     @Test
     public void calculateCartTotalPrice() {
         ShoppingCart cart = shoppingCart();
-        List<Product> productList= new ArrayList<>();
-        productList.add(product());
-        productList.add(product());
-        productList.add(product());
-        cart.setProductList(productList);
-        when(repository.read(cart.getName())).thenReturn(Optional.of(cart));
+        List<Product> productList = new ArrayList<>();
+        cart.addProductToList(product());
+        cart.addProductToList(product());
+        cart.addProductToList(product());
 
-        BigDecimal actualResult = victim.calculateCartTotalPrice("TEST_CART");
-        BigDecimal expectedResult = new BigDecimal(14*3);
+        BigDecimal actualResult = victim.calculateCartTotalPrice(cart);
+        BigDecimal expectedResult = new BigDecimal(90);
         Assert.assertEquals(expectedResult, actualResult);
     }
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");
         product.setDiscount(20);
         product.setId(2000L);
         product.setCategory("PROD_CATEGORY");
-        product.setPrice(new BigDecimal(14));
+        product.setPrice(new BigDecimal(30));
         return product;
     }
 
-    private ShoppingCart shoppingCart(){
+    private ShoppingCart shoppingCart() {
         ShoppingCart cart = new ShoppingCart();
-        List<Product> productList = new ArrayList<>();
         cart.setName("TEST_CART");
-        cart.setProductList(productList);
-        cart.addProductToList(product());
+        cart.setId(50L);
         return cart;
     }
 }

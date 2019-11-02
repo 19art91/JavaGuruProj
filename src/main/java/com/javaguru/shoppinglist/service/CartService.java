@@ -26,23 +26,22 @@ public class CartService {
     }
 
     public void addProductToCart(ShoppingCart cart, Product product) {
-        repository.update(cart.getName(), product);
+        repository.update(cart.getId(), product);
     }
 
-    public ShoppingCart findCartByName(String name){
-        return repository.read(name).orElseThrow(() -> new NoSuchElementException("Cart not found, name: " + name));
+    public ShoppingCart findCartById(Long id) {
+        return repository.read(id).orElseThrow(() -> new NoSuchElementException("Cart not found, id: " + id));
     }
 
-    public void deleteCart(String name){
-        repository.delete(name);
+    public void deleteCart(Long id) {
+        repository.delete(id);
     }
 
     //it is supposed that entered price is final and discount was already deducted. Need more requirements on this.
-    public BigDecimal calculateCartTotalPrice(String name){
-        ShoppingCart cart = repository.read(name).get();
+    public BigDecimal calculateCartTotalPrice(ShoppingCart cart) {
         BigDecimal total = new BigDecimal(0);
 
-        for(Product p : cart.getProductList()){
+        for (Product p : cart.getProductList()) {
             total = total.add(p.getPrice());
         }
         return total;

@@ -51,7 +51,7 @@ public class ProductInMemoryRepositoryTest {
         assertThat(result).isEmpty();
     }
 
-    private Product expectedProd(){
+    private Product expectedProd() {
         Product product = new Product();
         product.setName(PROD_NAME);
         product.setDescription(PROD_DESCRIPTION);
@@ -59,7 +59,7 @@ public class ProductInMemoryRepositoryTest {
         return product;
     }
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName(PROD_NAME);
         product.setDescription(PROD_DESCRIPTION);

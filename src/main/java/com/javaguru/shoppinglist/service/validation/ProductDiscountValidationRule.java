@@ -6,11 +6,6 @@ import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 public class ProductDiscountValidationRule implements ProductValidationRule {
     private final static double MIN_DISCOUNT = 0;
     private final static double MAX_DISCOUNT = 100;
-    private ProductInMemoryRepository repository;
-
-    public ProductDiscountValidationRule(ProductInMemoryRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public void validate(Product product) {

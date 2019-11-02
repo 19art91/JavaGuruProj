@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doThrow;
 
@@ -19,15 +20,9 @@ public class ProductValidationRuleTest {
 
     @Test
     public void shouldThrowValidationException() {
-        boolean thrown = false;
-        try{
-            victim.checkNotNull(null);
-        } catch (ProductValidationException e){
-            thrown = true;
-        }
 
-        assertTrue(thrown);
-
+        assertThatThrownBy(() -> victim.checkNotNull(null))
+                .isInstanceOf(ProductValidationException.class);
     }
 
     @Test

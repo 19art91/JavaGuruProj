@@ -17,7 +17,7 @@ class ShoppingListApplication {
         CartInMemoryRepository cartRepository = new CartInMemoryRepository();
 
         HashSet<ProductValidationRule> prodRules= new HashSet<>();
-        prodRules.add(new ProductDiscountValidationRule(prodRepository));
+        prodRules.add(new ProductDiscountValidationRule());
         prodRules.add(new ProductPriceValidationRule(prodRepository));
         prodRules.add(new ProductNameValidationRule(prodRepository));
 

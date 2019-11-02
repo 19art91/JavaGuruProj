@@ -38,10 +38,13 @@ public class CartNameValidationRuleTest {
                 .isInstanceOf(CartValidationException.class)
                 .hasMessage("Cart name must not be empty");
 
-        cart.setName("TEST_CART");
-        Optional<ShoppingCart> result = Optional.of(cart);
-        when(repository.read("TEST_CART")).thenReturn(result);
+        cart.setName(null);
+        assertThatThrownBy(() -> victim.validate(cart))
+                .isInstanceOf(CartValidationException.class)
+                .hasMessage("Cart name must not be null");
 
+        cart.setName("TEST_CART");
+        when(repository.readByName("TEST_CART")).thenReturn(Optional.of(cart));
         assertThatThrownBy(() -> victim.validate(cart))
                 .isInstanceOf(CartValidationException.class)
                 .hasMessage("Duplicate cart name");
@@ -49,7 +52,6 @@ public class CartNameValidationRuleTest {
 
     private ShoppingCart shoppingCart(){
         ShoppingCart cart = new ShoppingCart();
-        cart.setProductList(new ArrayList<>());
         cart.setName("TEST_CART");
         return cart;
     }

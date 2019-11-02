@@ -56,7 +56,6 @@ public class CartValidationServiceTest {
 
     private ShoppingCart shoppingCart(){
         ShoppingCart cart = new ShoppingCart();
-        cart.setProductList(new ArrayList<>());
         cart.setName("TEST_CART");
         return cart;
     }
