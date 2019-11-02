@@ -41,14 +41,14 @@ public class ProductPriceValidationRuleTest {
     }
 
     @Test
-    public void shouldValidate(){
+    public void shouldValidate() {
         product = product();
-        victim.validate(product,repository);
+        victim.validate(product, repository);
 
         verify(victim).checkNotNull(product);
     }
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");

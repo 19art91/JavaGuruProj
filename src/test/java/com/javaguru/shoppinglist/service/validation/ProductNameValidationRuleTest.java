@@ -34,7 +34,7 @@ public class ProductNameValidationRuleTest {
     private Product product = product();
 
     @Test
-    public void shouldThrowException(){
+    public void shouldThrowException() {
         product.setName(null);
         assertThatThrownBy(() -> victim.validate(product, repository))
                 .isInstanceOf(ProductValidationException.class)
@@ -66,7 +66,7 @@ public class ProductNameValidationRuleTest {
         verify(victim).checkNotNull(product);
     }
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");

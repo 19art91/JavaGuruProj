@@ -56,7 +56,7 @@ public class ProductValidationServiceTest {
     }
 
     @Test
-    public void shouldValidate(){
+    public void shouldValidate() {
         victim.validate(product, productInMemoryRepository);
         victim.validate(product, productInMemoryRepository);
 
@@ -68,7 +68,7 @@ public class ProductValidationServiceTest {
         assertThat(resultList).containsOnly(product);
     }
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");

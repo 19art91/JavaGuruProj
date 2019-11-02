@@ -72,7 +72,7 @@ public class ProductServiceTest {
     }
 
 
-    private Product product(){
+    private Product product() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");
@@ -83,7 +83,7 @@ public class ProductServiceTest {
         return product;
     }
 
-    private Product expectedProduct(){
+    private Product expectedProduct() {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");

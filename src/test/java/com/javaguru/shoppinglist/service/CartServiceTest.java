@@ -42,7 +42,8 @@ public class CartServiceTest {
     @Captor
     private ArgumentCaptor<ShoppingCart> captor;
 
-    @Captor ArgumentCaptor<Long> idCaptor;
+    @Captor
+    ArgumentCaptor<Long> idCaptor;
 
     private Product product = product();
 
