@@ -2,7 +2,9 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductDiscountValidationRule implements ProductValidationRule {
     private final static double MIN_DISCOUNT = 0;
     private final static double MAX_DISCOUNT = 100;
