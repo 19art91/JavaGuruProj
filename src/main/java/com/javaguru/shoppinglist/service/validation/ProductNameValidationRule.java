@@ -15,6 +15,10 @@ public class ProductNameValidationRule implements ProductValidationRule {
             throw new ProductValidationException("Product name must not be null");
         }
 
+        if (product.getName().equals("")) {
+            throw new ProductValidationException("Product name must not be empty");
+        }
+
         if (product.getName().length() < MIN_NAME || product.getName().length() > MAX_NAME) {
             throw new ProductValidationException("Product name must be in range " + MIN_NAME + " - " + MAX_NAME);
         }
@@ -22,5 +26,13 @@ public class ProductNameValidationRule implements ProductValidationRule {
         if (repository.findProductByName(product.getName()).isPresent()) {
             throw new ProductValidationException("Duplicate product name");
         }
+    }
+
+    public static int getMinName() {
+        return MIN_NAME;
+    }
+
+    public static int getMaxName() {
+        return MAX_NAME;
     }
 }

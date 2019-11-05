@@ -2,6 +2,7 @@ package com.javaguru.shoppinglist.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ShoppingCart {
 
@@ -34,9 +35,25 @@ public class ShoppingCart {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ShoppingCart that = (ShoppingCart) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(productList, that.productList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, productList);
+    }
+
+    @Override
     public String toString() {
         return "ShoppingCart{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", productList=" + productList +
                 '}';
     }

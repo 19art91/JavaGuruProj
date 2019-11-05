@@ -17,7 +17,7 @@ public class ProductService {
 
     public Long createProduct(Product product) {
         if (product.getPrice().compareTo(MIN_PRICE) < 0) {
-            product.setDiscount(0);
+            product.setDiscount(new BigDecimal(0));
         }
         validationService.validate(product, repository);
         Product createdProduct = repository.insert(product);
@@ -27,4 +27,5 @@ public class ProductService {
     public Product findProductById(Long id) {
         return repository.findProductById(id).orElseThrow(() -> new NoSuchElementException("Product not found, id: " + id));
     }
+
 }

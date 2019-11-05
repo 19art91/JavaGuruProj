@@ -16,4 +16,8 @@ public class ProductPriceValidationRule implements ProductValidationRule {
             throw new ProductValidationException("Incorrect price. Should be greater than " + MIN_PRICE);
         }
     }
+
+    public static BigDecimal getMinPrice() {
+        return MIN_PRICE;
+    }
 }
