@@ -15,7 +15,7 @@ public class ProductValidationService {
         validationRules.add(new ProductPriceValidationRule());
     }
 
-    public void setValidationRules(Set<ProductValidationRule> validationRules) {
+    public ProductValidationService(Set<ProductValidationRule> validationRules) {
         this.validationRules = validationRules;
     }
 

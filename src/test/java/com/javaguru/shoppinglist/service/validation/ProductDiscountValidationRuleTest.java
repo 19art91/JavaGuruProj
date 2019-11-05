@@ -32,12 +32,12 @@ public class ProductDiscountValidationRuleTest {
 
     @Test
     public void shouldValidateWithException() {
-        product.setDiscount(-50.0);
+        product.setDiscount(new BigDecimal(-50.0));
 
         assertThatThrownBy(() -> victim.validate(product, repository))
                 .isInstanceOf(ProductValidationException.class)
-                .hasMessage("Incorrect number. Should be in range " + ProductDiscountValidationRule.getMinDiscount() + " - " +
-                        ProductDiscountValidationRule.getMaxDiscount());
+                .hasMessage("Incorrect number. Should be in range " + ProductDiscountValidationRule.MIN_DISCOUNT + " - " +
+                        ProductDiscountValidationRule.MAX_DISCOUNT);
 
         verify(victim).checkNotNull(product);
     }
@@ -46,7 +46,7 @@ public class ProductDiscountValidationRuleTest {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");
-        product.setDiscount(20);
+        product.setDiscount(new BigDecimal(20));
         product.setId(2000L);
         product.setCategory("PROD_CATEGORY");
         product.setPrice(new BigDecimal(14));
