@@ -6,10 +6,13 @@ import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
 @Component
 public class ProductService {
+
+    private final static BigDecimal MIN_PRICE = new BigDecimal(20);
 
     private ProductInMemoryRepository repository;
     private ProductValidationService validationService;
@@ -21,6 +24,9 @@ public class ProductService {
     }
 
     public Long createProduct(Product product) {
+        if (product.getPrice().compareTo(MIN_PRICE) < 0) {
+            product.setDiscount(new BigDecimal(0));
+        }
         validationService.validate(product);
         Product createdProduct = repository.insert(product);
         return createdProduct.getId();

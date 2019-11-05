@@ -70,7 +70,7 @@ public class ProductNameValidationRuleTest {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");
-        product.setDiscount(20);
+        product.setDiscount(new BigDecimal(20));
         product.setId(2000L);
         product.setCategory("PROD_CATEGORY");
         product.setPrice(new BigDecimal(14));

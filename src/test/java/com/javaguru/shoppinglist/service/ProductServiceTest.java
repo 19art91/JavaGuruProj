@@ -75,7 +75,7 @@ public class ProductServiceTest {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");
-        product.setDiscount(0);
+        product.setDiscount(new BigDecimal(0));
         product.setId(2000L);
         product.setCategory("PROD_CATEGORY");
         product.setPrice(new BigDecimal(14));
