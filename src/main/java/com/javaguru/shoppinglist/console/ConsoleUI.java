@@ -91,7 +91,7 @@ public class ConsoleUI {
         System.out.println("Enter product price: ");
         BigDecimal price = new BigDecimal(scanner.nextLine());
         System.out.println("Enter product discount %: ");
-        int discount = scanner.nextInt();
+        BigDecimal discount = scanner.nextBigDecimal();
 
         Product product = new Product();
         product.setName(name);

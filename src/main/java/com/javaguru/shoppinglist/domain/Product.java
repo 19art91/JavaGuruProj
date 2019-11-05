@@ -9,7 +9,7 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String category;
-    private double discount;
+    private BigDecimal discount;
     private String description;
 
     public Long getId() {
@@ -44,11 +44,11 @@ public class Product {
         this.category = category;
     }
 
-    public double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 
@@ -65,11 +65,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Double.compare(product.discount, discount) == 0 &&
-                Objects.equals(id, product.id) &&
+        return Objects.equals(id, product.id) &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(price, product.price) &&
                 Objects.equals(category, product.category) &&
+                Objects.equals(discount, product.discount) &&
                 Objects.equals(description, product.description);
     }
 

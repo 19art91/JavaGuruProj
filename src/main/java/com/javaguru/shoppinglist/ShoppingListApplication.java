@@ -18,7 +18,7 @@ class ShoppingListApplication {
 
         HashSet<ProductValidationRule> prodRules= new HashSet<>();
         prodRules.add(new ProductDiscountValidationRule());
-        prodRules.add(new ProductPriceValidationRule(prodRepository));
+        prodRules.add(new ProductPriceValidationRule());
         prodRules.add(new ProductNameValidationRule(prodRepository));
 
         HashSet<CartValidationRule> cartRules = new HashSet<>();

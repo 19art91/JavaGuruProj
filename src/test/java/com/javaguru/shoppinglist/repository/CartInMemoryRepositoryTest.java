@@ -70,7 +70,7 @@ public class CartInMemoryRepositoryTest {
         Product product = new Product();
         product.setName("PROD_NAME");
         product.setDescription("PROD_DESCRIPTION");
-        product.setDiscount(20);
+        product.setDiscount(new BigDecimal(20));
         product.setId(2000L);
         product.setCategory("PROD_CATEGORY");
         product.setPrice(new BigDecimal(142));
@@ -81,7 +81,7 @@ public class CartInMemoryRepositoryTest {
         Product product = new Product();
         product.setName("PROD_NAME_2");
         product.setDescription("PROD_DESCRIPTION");
-        product.setDiscount(20);
+        product.setDiscount(new BigDecimal(20));
         product.setId(2001L);
         product.setCategory("PROD_CATEGORY");
         product.setPrice(new BigDecimal(142));

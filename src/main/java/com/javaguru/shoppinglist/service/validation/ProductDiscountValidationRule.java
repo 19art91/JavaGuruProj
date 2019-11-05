@@ -3,24 +3,18 @@ package com.javaguru.shoppinglist.service.validation;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 
+import java.math.BigDecimal;
+
 public class ProductDiscountValidationRule implements ProductValidationRule {
-    private final static double MIN_DISCOUNT = 0;
-    private final static double MAX_DISCOUNT = 100;
+    public final static BigDecimal MIN_DISCOUNT = new BigDecimal(0);
+    public final static BigDecimal MAX_DISCOUNT = new BigDecimal(100);
 
     @Override
     public void validate(Product product) {
         checkNotNull(product);
-        if(product.getDiscount() < MIN_DISCOUNT || product.getDiscount() > MAX_DISCOUNT){
+        if (product.getDiscount().compareTo(MIN_DISCOUNT) < 0 || product.getDiscount().compareTo(MAX_DISCOUNT) > 0) {
             throw new ProductValidationException("Incorrect number. Should be in range " + MIN_DISCOUNT + " - " +
                     MAX_DISCOUNT);
         }
-    }
-
-    public static double getMinDiscount() {
-        return MIN_DISCOUNT;
-    }
-
-    public static double getMaxDiscount() {
-        return MAX_DISCOUNT;
     }
 }
