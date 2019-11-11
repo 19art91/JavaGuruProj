@@ -11,15 +11,19 @@ public class ProductService {
 
     private final static BigDecimal MIN_PRICE = new BigDecimal(20);
 
-    private ProductInMemoryRepository repository = new ProductInMemoryRepository();
-    private ProductValidationService validationService = new ProductValidationService();
+    private ProductInMemoryRepository repository;
+    private ProductValidationService validationService;
 
+    public ProductService(ProductInMemoryRepository repository, ProductValidationService validationService) {
+        this.repository = repository;
+        this.validationService = validationService;
+    }
 
     public Long createProduct(Product product) {
         if (product.getPrice().compareTo(MIN_PRICE) < 0) {
             product.setDiscount(new BigDecimal(0));
         }
-        validationService.validate(product, repository);
+        validationService.validate(product);
         Product createdProduct = repository.insert(product);
         return createdProduct.getId();
     }

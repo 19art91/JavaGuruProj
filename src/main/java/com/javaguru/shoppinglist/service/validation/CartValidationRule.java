@@ -5,7 +5,7 @@ import com.javaguru.shoppinglist.repository.CartInMemoryRepository;
 
 public interface CartValidationRule {
 
-    void validate(ShoppingCart cart, CartInMemoryRepository repository);
+    void validate(ShoppingCart cart);
 
     default void checkNotNull(ShoppingCart cart) {
         if (cart == null) {

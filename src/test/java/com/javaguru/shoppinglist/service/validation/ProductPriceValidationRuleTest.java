@@ -22,9 +22,6 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ProductPriceValidationRuleTest {
 
-    @Mock
-    private ProductInMemoryRepository repository;
-
     @Spy
     @InjectMocks
     private ProductPriceValidationRule victim;
@@ -35,15 +32,15 @@ public class ProductPriceValidationRuleTest {
     public void shouldThrowException() {
         product.setPrice(new BigDecimal(-2));
 
-        assertThatThrownBy(() -> victim.validate(product, repository))
+        assertThatThrownBy(() -> victim.validate(product))
                 .isInstanceOf(ProductValidationException.class)
-                .hasMessage("Incorrect price. Should be greater than " + ProductPriceValidationRule.getMinPrice());
+                .hasMessage("Incorrect price. Should be greater than " + ProductPriceValidationRule.MIN_PRICE);
     }
 
     @Test
     public void shouldValidate() {
         product = product();
-        victim.validate(product, repository);
+        victim.validate(product);
 
         verify(victim).checkNotNull(product);
     }

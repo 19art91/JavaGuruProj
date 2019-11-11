@@ -5,7 +5,7 @@ import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 
 public interface ProductValidationRule {
 
-    void validate(Product product, ProductInMemoryRepository repository);
+    void validate(Product product);
 
     default void checkNotNull(Product product) {
         if (product == null) {

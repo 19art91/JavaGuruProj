@@ -56,12 +56,12 @@ public class ProductValidationServiceTest {
 
     @Test
     public void shouldValidate() {
-        victim.validate(product, productInMemoryRepository);
-        victim.validate(product, productInMemoryRepository);
+        victim.validate(product);
+        victim.validate(product);
 
-        verify(productNameValidationRule, times(2)).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
-        verify(productPriceValidationRule, atMost(2)).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
-        verify(productDiscountValidationRule, atLeast(2)).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
+        verify(productNameValidationRule, times(2)).validate(productCaptor.capture());
+        verify(productPriceValidationRule, atMost(2)).validate(productCaptor.capture());
+        verify(productDiscountValidationRule, atLeast(2)).validate(productCaptor.capture());
 
         List<Product> resultList = productCaptor.getAllValues();
         assertThat(resultList).containsOnly(product);

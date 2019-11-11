@@ -10,7 +10,7 @@ public class ProductDiscountValidationRule implements ProductValidationRule {
     public final static BigDecimal MAX_DISCOUNT = new BigDecimal(100);
 
     @Override
-    public void validate(Product product, ProductInMemoryRepository repository) {
+    public void validate(Product product) {
         checkNotNull(product);
         if (product.getDiscount().compareTo(MIN_DISCOUNT) < 0 || product.getDiscount().compareTo(MAX_DISCOUNT) > 0) {
             throw new ProductValidationException("Incorrect number. Should be in range " + MIN_DISCOUNT + " - " +

@@ -21,9 +21,6 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ProductDiscountValidationRuleTest {
 
-    @Mock
-    ProductInMemoryRepository repository;
-
     @Spy
     @InjectMocks
     private ProductDiscountValidationRule victim;
@@ -34,7 +31,7 @@ public class ProductDiscountValidationRuleTest {
     public void shouldValidateWithException() {
         product.setDiscount(new BigDecimal(-50.0));
 
-        assertThatThrownBy(() -> victim.validate(product, repository))
+        assertThatThrownBy(() -> victim.validate(product))
                 .isInstanceOf(ProductValidationException.class)
                 .hasMessage("Incorrect number. Should be in range " + ProductDiscountValidationRule.MIN_DISCOUNT + " - " +
                         ProductDiscountValidationRule.MAX_DISCOUNT);

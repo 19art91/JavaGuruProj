@@ -10,11 +10,17 @@ import java.util.NoSuchElementException;
 
 public class CartService {
 
-    private CartInMemoryRepository repository = new CartInMemoryRepository();
-    private CartValidationService validationService = new CartValidationService();
+    private CartInMemoryRepository repository;
+    private CartValidationService validationService;
+
+
+    public CartService(CartInMemoryRepository repository, CartValidationService validationService) {
+        this.repository = repository;
+        this.validationService = validationService;
+    }
 
     public ShoppingCart createCart(ShoppingCart cart) {
-        validationService.validate(cart, repository);
+        validationService.validate(cart);
         ShoppingCart createdCart = repository.insert(cart);
         return createdCart;
     }
@@ -24,7 +30,7 @@ public class CartService {
     }
 
     public ShoppingCart findCartById(Long id) {
-        return repository.read(id).orElseThrow(() -> new NoSuchElementException("Cart not found, id: " + id));
+        return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Cart not found, id: " + id));
     }
 
     public void deleteCart(Long id) {

@@ -51,7 +51,7 @@ public class ProductServiceTest {
 
         victim.createProduct(product);
 
-        verify(validationService).validate(productCaptor.capture(), any(ProductInMemoryRepository.class));
+        verify(validationService).validate(productCaptor.capture());
         Product captorResult = productCaptor.getValue();
 
         Assert.assertEquals(captorResult, product);
@@ -69,18 +69,6 @@ public class ProductServiceTest {
         expectedException.expect(NoSuchElementException.class);
         expectedException.expectMessage("Product not found, id: " + BAD_ID);
         victim.findProductById(BAD_ID);
-    }
-
-
-    private Product product() {
-        Product product = new Product();
-        product.setName("PROD_NAME");
-        product.setDescription("PROD_DESCRIPTION");
-        product.setDiscount(new BigDecimal(20));
-        product.setId(2000L);
-        product.setCategory("PROD_CATEGORY");
-        product.setPrice(new BigDecimal(14));
-        return product;
     }
 
     private Product expectedProduct() {

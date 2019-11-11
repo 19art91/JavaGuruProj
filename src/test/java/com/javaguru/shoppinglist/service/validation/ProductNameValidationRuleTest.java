@@ -36,24 +36,24 @@ public class ProductNameValidationRuleTest {
     @Test
     public void shouldThrowException() {
         product.setName(null);
-        assertThatThrownBy(() -> victim.validate(product, repository))
+        assertThatThrownBy(() -> victim.validate(product))
                 .isInstanceOf(ProductValidationException.class)
                 .hasMessage("Product name must not be null");
 
         product.setName("");
-        assertThatThrownBy(() -> victim.validate(product, repository))
+        assertThatThrownBy(() -> victim.validate(product))
                 .isInstanceOf(ProductValidationException.class)
                 .hasMessage("Product name must not be empty");
 
         product.setName("A");
-        assertThatThrownBy(() -> victim.validate(product, repository))
+        assertThatThrownBy(() -> victim.validate(product))
                 .isInstanceOf(ProductValidationException.class)
                 .hasMessage("Product name must be in range " + ProductNameValidationRule.getMinName() + " - " + ProductNameValidationRule.getMaxName());
 
         product.setName("PROD_NAME");
         Optional<Product> prod = Optional.of(product);
         when(repository.findProductByName(product.getName())).thenReturn(prod);
-        assertThatThrownBy(() -> victim.validate(product, repository))
+        assertThatThrownBy(() -> victim.validate(product))
                 .isInstanceOf(ProductValidationException.class)
                 .hasMessage("Duplicate product name");
     }
@@ -61,7 +61,7 @@ public class ProductNameValidationRuleTest {
     @Test
     public void shouldValidate() {
         when(repository.findProductByName(product.getName())).thenReturn(Optional.empty());
-        victim.validate(product, repository);
+        victim.validate(product);
 
         verify(victim).checkNotNull(product);
     }
