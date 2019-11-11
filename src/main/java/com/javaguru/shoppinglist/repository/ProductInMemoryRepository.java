@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Component
-public class ProductInMemoryRepository {
+public class ProductInMemoryRepository implements ProductRepository {
 
     private Long productIdSequence = 0L;
     private Map<Long, Product> productRepository = new HashMap<>();
