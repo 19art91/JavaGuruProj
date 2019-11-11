@@ -22,7 +22,7 @@ public class CartNameValidationRule implements CartValidationRule {
             throw new CartValidationException("Cart name must not be empty");
         }
 
-        if (repository.findByName(cart.getName()).isPresent()) {
+        if (repository.readByName(cart.getName()).isPresent()) {
             throw new CartValidationException("Duplicate cart name");
         }
     }

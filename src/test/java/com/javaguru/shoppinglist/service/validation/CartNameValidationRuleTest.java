@@ -44,7 +44,7 @@ public class CartNameValidationRuleTest {
                 .hasMessage("Cart name must not be null");
 
         cart.setName("TEST_CART");
-        when(repository.findByName("TEST_CART")).thenReturn(Optional.of(cart));
+        when(repository.readByName("TEST_CART")).thenReturn(Optional.of(cart));
         assertThatThrownBy(() -> victim.validate(cart))
                 .isInstanceOf(CartValidationException.class)
                 .hasMessage("Duplicate cart name");

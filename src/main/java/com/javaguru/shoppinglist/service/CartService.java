@@ -30,7 +30,7 @@ public class CartService {
     }
 
     public ShoppingCart findCartById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Cart not found, id: " + id));
+        return repository.read(id).orElseThrow(() -> new NoSuchElementException("Cart not found, id: " + id));
     }
 
     public void deleteCart(Long id) {
