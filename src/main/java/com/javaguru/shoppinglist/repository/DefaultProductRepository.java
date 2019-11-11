@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Profile("dev")
 public class DefaultProductRepository implements ProductRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -28,44 +29,48 @@ public class DefaultProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product insert(Product product){
+    public Product insert(Product product) {
 
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            String SQL = "insert into products (name, description, category, price, discount) values" +
-                    "(?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String SQL = "insert into products (name, description, category, price, discount) values" +
+                "(?, ?, ?, ?, ?)";
 
-            PreparedStatementCreator createdStatement = new PreparedStatementCreator() {
-                @Override
-                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                    PreparedStatement ps = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS);
-                    ps.setString(1, product.getName());
-                    ps.setString(2, product.getDescription());
-                    ps.setString(3, product.getCategory());
-                    ps.setBigDecimal(4, product.getPrice());
-                    ps.setBigDecimal(5, product.getDiscount());
-                    return ps;
-                }
-            };
+        PreparedStatementCreator createdStatement = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS);
+                ps.setString(1, product.getName());
+                ps.setString(2, product.getDescription());
+                ps.setString(3, product.getCategory());
+                ps.setBigDecimal(4, product.getPrice());
+                ps.setBigDecimal(5, product.getDiscount());
+                return ps;
+            }
+        };
 
-            jdbcTemplate.update(createdStatement, keyHolder);
-            Number key = keyHolder.getKey();
-            product.setId(key.longValue());
+        jdbcTemplate.update(createdStatement, keyHolder);
+        Number key = keyHolder.getKey();
+        product.setId(key.longValue());
 
-            return product;
+        return product;
     }
 
-    public Optional<Product> findProductById(Long id){
+    public Optional<Product> findProductById(Long id) {
         String SQL = "select * from products where id = " + id;
-        List<Product>  product = jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(Product.class));
+        List<Product> product = jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(Product.class));
 
         return product.isEmpty() ? Optional.empty() : Optional.ofNullable(product.get(0));
-    };
+    }
 
-    public Optional<Product> findProductByName(String name){
+    ;
+
+    public Optional<Product> findProductByName(String name) {
 
         String SQL = "select * from products where name = " + "\"" + name + "\"";
-        List<Product>  product = jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(Product.class));
+        List<Product> product = jdbcTemplate.query(SQL, new BeanPropertyRowMapper<>(Product.class));
 
         return product.isEmpty() ? Optional.empty() : Optional.ofNullable(product.get(0));
-    };
+    }
+
+    ;
 }

@@ -17,7 +17,7 @@ public class ProductValidationService {
         this.validationRules = validationRules;
     }
 
-    public void validate(Product product){
-       validationRules.forEach(p -> p.validate(product));
+    public void validate(Product product) {
+        validationRules.forEach(p -> p.validate(product));
     }
 }

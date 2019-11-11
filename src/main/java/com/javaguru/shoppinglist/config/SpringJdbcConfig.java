@@ -31,12 +31,12 @@ public class SpringJdbcConfig {
     private String password;
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer(){
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
     @Bean
-    public DataSource mysqlDataSource(){
+    public DataSource mysqlDataSource() {
         DriverManagerDataSource datasource = new DriverManagerDataSource();
         datasource.setDriverClassName(driverClass);
         datasource.setUrl(jdbcUrl);
@@ -47,7 +47,7 @@ public class SpringJdbcConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(){
+    public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(mysqlDataSource());
     }
 }

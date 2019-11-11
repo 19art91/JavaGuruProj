@@ -48,7 +48,7 @@ public class ProductNameValidationRuleTest {
         product.setName("A");
         assertThatThrownBy(() -> victim.validate(product))
                 .isInstanceOf(ProductValidationException.class)
-                .hasMessage("Product name must be in range " + ProductNameValidationRule.getMinName() + " - " + ProductNameValidationRule.getMaxName());
+                .hasMessage("Product name must be in range " + ProductNameValidationRule.MIN_NAME + " - " + ProductNameValidationRule.MAX_NAME);
 
         product.setName("PROD_NAME");
         Optional<Product> prod = Optional.of(product);

@@ -73,12 +73,12 @@ public class CartServiceTest {
     @Test
     public void findCartById() {
         ShoppingCart cart = shoppingCart();
-        when(repository.read(cart.getId())).thenReturn(Optional.of(cart));
+        when(repository.findById(cart.getId())).thenReturn(Optional.of(cart));
         ShoppingCart result = victim.findCartById(cart.getId());
 
         Assert.assertEquals(cart, result);
 
-        when(repository.read(BAD_ID)).thenReturn(Optional.empty());
+        when(repository.findById(BAD_ID)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> victim.findCartById(BAD_ID))
                 .isInstanceOf(NoSuchElementException.class)
@@ -100,7 +100,6 @@ public class CartServiceTest {
     @Test
     public void calculateCartTotalPrice() {
         ShoppingCart cart = shoppingCart();
-        List<Product> productList = new ArrayList<>();
         cart.addProductToList(product());
         cart.addProductToList(product());
         cart.addProductToList(product());

@@ -21,11 +21,11 @@ public class CartInMemoryRepository {
         cartRepository.get(id).addProductToList(product);
     }
 
-    public Optional<ShoppingCart> read(Long id) {
+    public Optional<ShoppingCart> findById(Long id) {
         return Optional.ofNullable(cartRepository.get(id));
     }
 
-    public Optional<ShoppingCart> readByName(String name) {
+    public Optional<ShoppingCart> findByName(String name) {
         ShoppingCart cart = null;
         for (ShoppingCart s : cartRepository.values()) {
             if (s.getName().equals(name)) {
