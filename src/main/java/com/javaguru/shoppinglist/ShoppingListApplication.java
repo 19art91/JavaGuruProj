@@ -8,6 +8,7 @@ import com.javaguru.shoppinglist.service.ProductService;
 import com.javaguru.shoppinglist.service.validation.*;
 
 import java.util.HashSet;
+import java.util.Set;
 
 class ShoppingListApplication {
 
@@ -16,12 +17,12 @@ class ShoppingListApplication {
         ProductInMemoryRepository prodRepository = new ProductInMemoryRepository();
         CartInMemoryRepository cartRepository = new CartInMemoryRepository();
 
-        HashSet<ProductValidationRule> prodRules= new HashSet<>();
+        Set<ProductValidationRule> prodRules= new HashSet<>();
         prodRules.add(new ProductDiscountValidationRule());
         prodRules.add(new ProductPriceValidationRule());
         prodRules.add(new ProductNameValidationRule(prodRepository));
 
-        HashSet<CartValidationRule> cartRules = new HashSet<>();
+        Set<CartValidationRule> cartRules = new HashSet<>();
         cartRules.add(new CartNameValidationRule(cartRepository));
 
         ProductValidationService productValidationService = new ProductValidationService(prodRules);
