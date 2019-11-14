@@ -62,8 +62,6 @@ public class DefaultProductRepository implements ProductRepository {
         return product.isEmpty() ? Optional.empty() : Optional.ofNullable(product.get(0));
     }
 
-    ;
-
     public Optional<Product> findProductByName(String name) {
 
         String SQL = "select * from products where name = " + "\"" + name + "\"";
