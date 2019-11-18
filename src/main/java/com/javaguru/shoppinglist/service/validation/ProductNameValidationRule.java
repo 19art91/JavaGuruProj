@@ -2,13 +2,17 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductNameValidationRule implements ProductValidationRule {
 
-    private final static int MIN_NAME = 3;
-    private final static int MAX_NAME = 32;
+    public final static int MIN_NAME = 3;
+    public final static int MAX_NAME = 32;
     private ProductInMemoryRepository repository;
 
+    @Autowired
     public ProductNameValidationRule(ProductInMemoryRepository repository) {
         this.repository = repository;
     }
@@ -31,13 +35,5 @@ public class ProductNameValidationRule implements ProductValidationRule {
         if (repository.findProductByName(product.getName()).isPresent()) {
             throw new ProductValidationException("Duplicate product name");
         }
-    }
-
-    public static int getMinName() {
-        return MIN_NAME;
-    }
-
-    public static int getMaxName() {
-        return MAX_NAME;
     }
 }
