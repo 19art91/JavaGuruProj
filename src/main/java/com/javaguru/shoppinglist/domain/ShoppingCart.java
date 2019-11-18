@@ -1,14 +1,21 @@
 package com.javaguru.shoppinglist.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "cart")
 public class ShoppingCart {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
     private String name;
-    private List<Product> productList = new ArrayList<>();
+//    private List<Product> productList = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -22,17 +29,17 @@ public class ShoppingCart {
         return name;
     }
 
-    public List<Product> getProductList() {
-        return productList;
-    }
+//    public List<Product> getProductList() {
+//        return productList;
+//    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void addProductToList(Product product) {
-        this.productList.add(product);
-    }
+//    public void addProductToList(Product product) {
+//        this.productList.add(product);
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,13 +47,27 @@ public class ShoppingCart {
         if (o == null || getClass() != o.getClass()) return false;
         ShoppingCart that = (ShoppingCart) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(productList, that.productList);
+                Objects.equals(name, that.name);
+//                Objects.equals(productList, that.productList);
     }
+
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, name, productList);
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "ShoppingCart{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", productList=" + productList +
+//                '}';
+//    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, productList);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -54,7 +75,8 @@ public class ShoppingCart {
         return "ShoppingCart{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", productList=" + productList +
+                ", productList=" +
                 '}';
     }
+
 }

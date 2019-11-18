@@ -25,7 +25,7 @@ public class ConsoleUI {
     public void execute() {
         while (true) {
             Scanner scanner = new Scanner(System.in);
-            try {
+//            try {
                 System.out.println("\n1. Create product");
                 System.out.println("2. Find product by id");
                 System.out.println("3. Shopping cart menu");
@@ -77,9 +77,9 @@ public class ConsoleUI {
                     case 4:
                         return;
                 }
-            } catch (Exception e) {
-                System.out.println("Error! Please try again.");
-            }
+//            } catch (Exception e) {
+//                System.out.println("Error! Please try again.");
+//            }
         }
 
     }
