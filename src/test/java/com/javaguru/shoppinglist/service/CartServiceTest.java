@@ -100,7 +100,6 @@ public class CartServiceTest {
     @Test
     public void calculateCartTotalPrice() {
         ShoppingCart cart = shoppingCart();
-        List<Product> productList = new ArrayList<>();
         cart.addProductToList(product());
         cart.addProductToList(product());
         cart.addProductToList(product());

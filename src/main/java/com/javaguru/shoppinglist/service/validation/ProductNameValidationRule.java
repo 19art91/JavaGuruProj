@@ -1,7 +1,7 @@
 package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +10,10 @@ public class ProductNameValidationRule implements ProductValidationRule {
 
     public final static int MIN_NAME = 3;
     public final static int MAX_NAME = 32;
-    private ProductInMemoryRepository repository;
+    private ProductRepository repository;
 
     @Autowired
-    public ProductNameValidationRule(ProductInMemoryRepository repository) {
+    public ProductNameValidationRule(ProductRepository repository) {
         this.repository = repository;
     }
 
