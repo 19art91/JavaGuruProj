@@ -13,3 +13,31 @@ create table if not exists shoppinglist.products
 )
 
     AUTO_INCREMENT = 1
+
+
+create table if not exists shoppinglist.cart
+(
+    id          BIGINT       NOT NULL AUTO_INCREMENT,
+    name        VARCHAR(100) NOT NULL,
+    created     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)
+
+    AUTO_INCREMENT = 1
+
+
+CREATE TABLE `shoppinglist`.`product_cart` (
+  `cart_id` BIGINT NOT NULL,
+  `product_id` BIGINT NOT NULL,
+  INDEX `cart_id_idx` (`cart_id` ASC) VISIBLE,
+  INDEX `product_id_idx` (`product_id` ASC) VISIBLE,
+  CONSTRAINT `cart_id`
+    FOREIGN KEY (`cart_id`)
+    REFERENCES `shoppinglist`.`cart` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `product_id`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `shoppinglist`.`products` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);

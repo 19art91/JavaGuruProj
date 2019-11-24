@@ -9,7 +9,7 @@ public interface CartRepository {
 
     public ShoppingCart insert(ShoppingCart cart);
 
-//    public void update(Long id, Product product);
+    public void update(ShoppingCart cart, Product product);
 
     public Optional<ShoppingCart> findById(Long id);
 

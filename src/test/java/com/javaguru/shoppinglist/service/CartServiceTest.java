@@ -60,15 +60,15 @@ public class CartServiceTest {
         Assert.assertEquals(captorResult, shoppingCart());
     }
 
-//    @Test
-//    public void addProductToCart() {
-//        ShoppingCart cart = shoppingCart();
-//
-//        victim.addProductToCart(cart, product);
-//        victim.addProductToCart(cart, product);
-//
-//        verify(repository, times(2)).update(cart.getId(), product);
-//    }
+    @Test
+    public void addProductToCart() {
+        ShoppingCart cart = shoppingCart();
+
+        victim.addProductToCart(cart, product);
+        victim.addProductToCart(cart, product);
+
+        verify(repository, times(2)).update(cart, product);
+    }
 
     @Test
     public void findCartById() {
@@ -97,17 +97,17 @@ public class CartServiceTest {
 
     }
 
-//    @Test
-//    public void calculateCartTotalPrice() {
-//        ShoppingCart cart = shoppingCart();
-//        cart.addProductToList(product());
-//        cart.addProductToList(product());
-//        cart.addProductToList(product());
-//
-//        BigDecimal actualResult = victim.calculateCartTotalPrice(cart);
-//        BigDecimal expectedResult = new BigDecimal(90);
-//        Assert.assertEquals(expectedResult, actualResult);
-//    }
+    @Test
+    public void calculateCartTotalPrice() {
+        ShoppingCart cart = shoppingCart();
+        cart.getProducts().add(product());
+        cart.getProducts().add(product());
+        cart.getProducts().add(product());
+
+        BigDecimal actualResult = victim.calculateCartTotalPrice(cart);
+        BigDecimal expectedResult = new BigDecimal(90);
+        Assert.assertEquals(expectedResult, actualResult);
+    }
 
     private Product product() {
         Product product = new Product();

@@ -26,16 +26,16 @@ public class CartInMemoryRepositoryTest {
         assertThat(result).isEqualTo(expectedCart());
     }
 
-//    @Test
-//    public void shouldUpdate() {
-//        cart.setId(0L);
-//        ShoppingCart result = victim.insert(cart());
-//
-//        victim.update(cart.getId(), product());
-//        victim.update(cart.getId(), product2());
-//
-//        assertThat(result.getProductList()).isEqualTo(expectedCart2().getProductList());
-//    }
+    @Test
+    public void shouldUpdate() {
+        cart.setId(0L);
+        ShoppingCart result = victim.insert(cart());
+
+        victim.update(cart, product());
+        victim.update(cart, product2());
+
+        assertThat(result.getProducts().equals(expectedCart2().getProducts()));
+    }
 
     @Test
     public void read() {
@@ -58,13 +58,13 @@ public class CartInMemoryRepositoryTest {
         return cart;
     }
 
-//    private ShoppingCart expectedCart2() {
-//        ShoppingCart cart = new ShoppingCart();
-//        cart.addProductToList(product());
-//        cart.addProductToList(product2());
-//        cart.setName("TEST_CART");
-//        return cart;
-//    }
+    private ShoppingCart expectedCart2() {
+        ShoppingCart cart = new ShoppingCart();
+        cart.getProducts().add(product());
+        cart.getProducts().add(product2());
+        cart.setName("TEST_CART");
+        return cart;
+    }
 
     private Product product() {
         Product product = new Product();

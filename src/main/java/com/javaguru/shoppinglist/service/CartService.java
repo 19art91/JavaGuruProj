@@ -8,6 +8,7 @@ import com.javaguru.shoppinglist.service.validation.CartValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
@@ -30,7 +31,7 @@ public class CartService {
     }
 
     public void addProductToCart(ShoppingCart cart, Product product) {
-        repository.update(cart.getId(), product);
+        repository.update(cart, product);
     }
 
     public ShoppingCart findCartById(Long id) {
@@ -45,7 +46,7 @@ public class CartService {
     public BigDecimal calculateCartTotalPrice(ShoppingCart cart) {
         BigDecimal total = new BigDecimal(0);
 
-        for (Product p : cart.getProductList()) {
+        for (Product p : cart.getProducts()) {
             total = total.add(p.getPrice());
         }
         return total;
