@@ -39,6 +39,7 @@ public class CartService {
     }
 
     public void deleteCart(Long id) {
+        System.out.println("id before delete = " + id);
         repository.delete(id);
     }
 

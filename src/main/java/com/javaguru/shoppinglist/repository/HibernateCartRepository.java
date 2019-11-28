@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Component
 @Profile("dev2")
 public class HibernateCartRepository implements CartRepository {
@@ -27,13 +28,11 @@ public class HibernateCartRepository implements CartRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    @Transactional
     public ShoppingCart insert(ShoppingCart cart) {
         sessionFactory.getCurrentSession().save(cart);
         return cart;
     }
 
-    @Transactional
     public Optional<ShoppingCart> findByName(String name) {
         ShoppingCart cart = (ShoppingCart) sessionFactory.getCurrentSession().createQuery("from ShoppingCart where name = :name")
                 .setParameter("name", name)
@@ -42,7 +41,6 @@ public class HibernateCartRepository implements CartRepository {
         return Optional.ofNullable(cart);
     }
 
-    @Transactional
     public void update(ShoppingCart cart, Product product) {
         List<Product> productList;
         productList = cart.getProducts();
@@ -51,7 +49,6 @@ public class HibernateCartRepository implements CartRepository {
         sessionFactory.getCurrentSession().update(cart);
     }
 
-    @Transactional
     public Optional<ShoppingCart> findById(Long id) {
         ShoppingCart cart = (ShoppingCart) sessionFactory.getCurrentSession().createQuery("from ShoppingCart where id = :id")
                 .setParameter("id", id)
@@ -60,9 +57,7 @@ public class HibernateCartRepository implements CartRepository {
         return Optional.ofNullable(cart);
     }
 
-    @Transactional
     public void delete(Long id) {
-        System.out.println("id before delete = " + id);
         Query cart = sessionFactory.getCurrentSession().createQuery("delete ShoppingCart where id = :id")
                 .setParameter("id", id);
         cart.executeUpdate();
