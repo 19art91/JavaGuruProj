@@ -28,7 +28,6 @@ public class CartNameValidationRuleTest {
     @InjectMocks
     private CartNameValidationRule victim;
 
-
     private ShoppingCart cart = shoppingCart();
 
     @Test

@@ -2,12 +2,14 @@ package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.domain.ShoppingCart;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
-public class CartInMemoryRepository {
+@Profile("test")
+public class CartInMemoryRepository implements CartRepository {
     private Long cartIdSequence = 0L;
     private Map<Long, ShoppingCart> cartRepository = new HashMap<>();
 
@@ -17,8 +19,8 @@ public class CartInMemoryRepository {
         return cart;
     }
 
-    public void update(Long id, Product product) {
-        cartRepository.get(id).addProductToList(product);
+    public void update(ShoppingCart cart, Product product) {
+        cartRepository.get(cart.getId()).getProducts().add(product);
     }
 
     public Optional<ShoppingCart> findById(Long id) {

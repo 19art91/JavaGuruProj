@@ -145,7 +145,7 @@ public class ConsoleUI {
 
     private void printCart(ShoppingCart cart) {
         int i = 1;
-        for (Product p : cart.getProductList()) {
+        for (Product p : cart.getProducts()) {
             System.out.println(i++ + ". " + p);
         }
     }

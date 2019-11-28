@@ -1,14 +1,18 @@
 package com.javaguru.shoppinglist.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import javax.persistence.*;
+import java.util.*;
 
+@Entity
+@Table(name = "cart")
 public class ShoppingCart {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
     private String name;
-    private List<Product> productList = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -22,16 +26,22 @@ public class ShoppingCart {
         return name;
     }
 
-    public List<Product> getProductList() {
-        return productList;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void addProductToList(Product product) {
-        this.productList.add(product);
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(name = "product_cart",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products = new LinkedList<>();
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override
@@ -40,13 +50,12 @@ public class ShoppingCart {
         if (o == null || getClass() != o.getClass()) return false;
         ShoppingCart that = (ShoppingCart) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(productList, that.productList);
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, productList);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -54,7 +63,7 @@ public class ShoppingCart {
         return "ShoppingCart{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", productList=" + productList +
                 '}';
     }
+
 }

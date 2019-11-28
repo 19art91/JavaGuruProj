@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Component
 @Profile("dev2")
 public class HibernateProductRepository implements ProductRepository {
@@ -17,19 +18,16 @@ public class HibernateProductRepository implements ProductRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Transactional
     public Product insert(Product product) {
         sessionFactory.getCurrentSession().save(product);
         return product;
     }
 
-    @Transactional
     public Optional<Product> findProductById(Long id) {
         Product product = sessionFactory.getCurrentSession().get(Product.class, id);
         return Optional.ofNullable(product);
     }
 
-    @Transactional
     public Optional<Product> findProductByName(String name) {
         Product product = (Product) sessionFactory.getCurrentSession().createQuery("from Product where name = :name")
                 .setParameter("name", name)

@@ -31,10 +31,10 @@ public class CartInMemoryRepositoryTest {
         cart.setId(0L);
         ShoppingCart result = victim.insert(cart());
 
-        victim.update(cart.getId(), product());
-        victim.update(cart.getId(), product2());
+        victim.update(cart, product());
+        victim.update(cart, product2());
 
-        assertThat(result.getProductList()).isEqualTo(expectedCart2().getProductList());
+        assertThat(result.getProducts().equals(expectedCart2().getProducts()));
     }
 
     @Test
@@ -60,8 +60,8 @@ public class CartInMemoryRepositoryTest {
 
     private ShoppingCart expectedCart2() {
         ShoppingCart cart = new ShoppingCart();
-        cart.addProductToList(product());
-        cart.addProductToList(product2());
+        cart.getProducts().add(product());
+        cart.getProducts().add(product2());
         cart.setName("TEST_CART");
         return cart;
     }

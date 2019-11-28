@@ -67,7 +67,7 @@ public class CartServiceTest {
         victim.addProductToCart(cart, product);
         victim.addProductToCart(cart, product);
 
-        verify(repository, times(2)).update(cart.getId(), product);
+        verify(repository, times(2)).update(cart, product);
     }
 
     @Test
@@ -100,9 +100,9 @@ public class CartServiceTest {
     @Test
     public void calculateCartTotalPrice() {
         ShoppingCart cart = shoppingCart();
-        cart.addProductToList(product());
-        cart.addProductToList(product());
-        cart.addProductToList(product());
+        cart.getProducts().add(product());
+        cart.getProducts().add(product());
+        cart.getProducts().add(product());
 
         BigDecimal actualResult = victim.calculateCartTotalPrice(cart);
         BigDecimal expectedResult = new BigDecimal(90);

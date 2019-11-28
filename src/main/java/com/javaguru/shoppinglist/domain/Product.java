@@ -2,7 +2,7 @@ package com.javaguru.shoppinglist.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "products")
@@ -22,6 +22,17 @@ public class Product {
     private BigDecimal discount;
     @Column(name = "description")
     private String description;
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "products")
+    private List<ShoppingCart> carts = new LinkedList<>();
+
+    public void setCarts(List<ShoppingCart> carts) {
+        this.carts = carts;
+    }
+
+    public List<ShoppingCart> getCarts() {
+        return carts;
+    }
 
     public Long getId() {
         return id;
