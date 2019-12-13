@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,8 +39,10 @@ public class ShoppingCartController {
     @GetMapping("/{id}")
     public ShoppingCartDTO findProductById(@PathVariable("id") Long id) {
         ShoppingCart cart = cartService.findCartById(id);
-        List<ProductDTO> productList = new LinkedList<>();
-        for (Product p : cart.getProducts()) {
+        List<ProductDTO> productList = new ArrayList<>();
+
+
+        cart.getProducts().forEach(p -> {
             ProductDTO product = new ProductDTO();
             product.setId(p.getId());
             product.setName(p.getName());
@@ -48,7 +51,7 @@ public class ShoppingCartController {
             product.setDiscount(p.getDiscount());
             product.setDescription(p.getDescription());
             productList.add(product);
-        }
+        });
 
         return new ShoppingCartDTO(cart.getId(), cart.getName(), productList);
     }
@@ -61,8 +64,8 @@ public class ShoppingCartController {
         return ResponseEntity.ok("Shopping Cart with id = " + id + " is deleted");
     }
 
-    @PutMapping("/{cart_id}/product/{prod_id}")
-    public ResponseEntity<String> addProductToCart(@PathVariable("cart_id") Long cart_id, @PathVariable("prod_id") Long prod_id) {
+    @PutMapping("/{cartId}/product/{prodId}")
+    public ResponseEntity<String> addProductToCart(@PathVariable("cartId") Long cart_id, @PathVariable("prodId") Long prod_id) {
         ShoppingCart cart = cartService.findCartById(cart_id);
         Product product = productService.findProductById(prod_id);
         cartService.addProductToCart(cart, product);
@@ -70,7 +73,6 @@ public class ShoppingCartController {
         return ResponseEntity.ok(product.getName() + " product is added to the " + cart.getName() + " cart");
 
     }
-
 
     @GetMapping("/{id}/totalprice")
     public ResponseEntity<String> calculateCartTotalPrice(@PathVariable("id") Long id) {

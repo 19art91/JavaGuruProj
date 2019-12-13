@@ -17,7 +17,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
         Product product = new Product();
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
@@ -25,7 +25,7 @@ public class ProductController {
         product.setDiscount(productDTO.getDiscount());
         product.setDescription(productDTO.getDescription());
         productService.createProduct(product);
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getCategory(), product.getDiscount(), product.getDescription()));
     }
 
     @GetMapping("/{id}")
