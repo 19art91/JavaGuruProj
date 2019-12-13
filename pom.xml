@@ -8,6 +8,8 @@
   <name>shopping-list</name>
   <description>JavaGuru Java 2 course demo project</description>
 
+  <packaging>war</packaging>
+
   <properties>
     <java.version>1.8</java.version>
   </properties>
@@ -61,7 +63,27 @@
       <artifactId>spring-orm</artifactId>
       <version>5.1.3.RELEASE</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>4.3.22.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>4.3.22.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.7</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -75,6 +97,20 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/</path>
+          <port>8080</port>
+          <systemProperties>
+            <spring.profiles.active>dev2</spring.profiles.active>
+          </systemProperties>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
